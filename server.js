@@ -1,6 +1,9 @@
 import express, { json } from "express";
 import queues from "./queues.js";
 import subjects from "./subjects.js";
+import pakoUsers from "./pakoUsers.js";
+import pakoRooms from "./pakoRooms.js";
+
 const app = express();
 const port = 8080;
 
@@ -52,6 +55,10 @@ app.post("/queues/delete", (req, res) => {
     queues = queues.filter((e, index) => queues[index] !== queues[idx]);
   res.send("Deleted to queue");
 });
+
+app.post("/api/v1/isPakoUser", (req, res) => {
+  res.send(pakoUsers.findIndex((e) => e.id === req.body.userID));
+}); 
 
 app.listen(port, () => {
   console.log("Listening " + port);
