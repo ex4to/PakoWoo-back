@@ -1,4 +1,4 @@
-import express, { json } from "express";
+import express from "express";
 import queues from "./queues.js";
 import subjects from "./subjects.js";
 import pakoUsers from "./pakoUsers.js";
@@ -7,7 +7,7 @@ import pakoRooms from "./pakoRooms.js";
 const app = express();
 const port = 8080;
 
-app.use(json());
+app.use(express.json());
 
 app.get("/subjects/all", (req, res) => {
   res.statusCode = 200;
@@ -57,8 +57,28 @@ app.post("/queues/delete", (req, res) => {
 });
 
 app.post("/api/v1/isPakoUser", (req, res) => {
-  res.send(pakoUsers.findIndex((e) => e.id === req.body.userID));
-}); 
+  res.json({ isUser: pakoUsers.findIndex((e) => e.vkId === req.body.userID) });
+});
+
+app.post("/api/v1/createNewPakoUser", (req, res) => {
+  const newPakoUser = {
+    pakoId: pakoUsers.length + 1,
+    vkId: req.body.id,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    photo: req.body.photo,
+    fullName() {
+      return this.firstName + " " + this.lastName;
+    },
+  };
+  pakoUsers.push(newPakoUser);
+  res.json(newPakoUser);
+});
+
+app.get("/api/v1/pakos/:id", (req, res) => {
+  console.log(req.params);
+  res.json('a');
+});
 
 app.listen(port, () => {
   console.log("Listening " + port);

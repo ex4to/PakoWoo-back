@@ -1,5 +1,5 @@
 export default [{
-    roomId: 0115,
+    roomId: 115,
     roomPass: '1e6WWc',
     roomName: 'TEST ROOM',
     participants: [1, 2],

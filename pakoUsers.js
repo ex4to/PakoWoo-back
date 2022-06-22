@@ -1,15 +1,19 @@
 export default [{
-    id: 1,
+    pakoId: 1,
+    vkId: 100,
     firstName: 'Kostya',
     lastName: 'Ivanov',
+    photo: 'null',
     fullName() {
         return this.firstName + " " + this.lastName
     }
   }, {
-    id: 2,
+    pakoId: 2,
+    vkId: 200,
     firstName: 'Pavel',
     lastName: 'Popov',
+    photo: 'null',
     fullName() {
-        return this.firstName + " " + this.lastName
-    }
+      return this.firstName + " " + this.lastName
+  },
   }];
