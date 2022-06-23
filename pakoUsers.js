@@ -5,7 +5,6 @@ export default [
     firstName: "Kostya",
     lastName: "Ivanov",
     photo: "null",
-    rooms: [115],
   },
   {
     pakoId: 2,
@@ -13,6 +12,5 @@ export default [
     firstName: "Pavel",
     lastName: "Popov",
     photo: "null",
-    rooms: [115],
   },
 ];

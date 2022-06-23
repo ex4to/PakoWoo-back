@@ -67,7 +67,6 @@ app.post("/api/v1/createNewPakoUser", (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     photo: req.body.photo,
-    rooms: [],
   };
 
   pakoUsers.push(newPakoUser);
@@ -77,6 +76,25 @@ app.post("/api/v1/createNewPakoUser", (req, res) => {
 app.get("/api/v1/pakos/:id", (req, res) => {
   const idxPako = pakoUsers.findIndex((e) => e.vkId === Number(req.params.id));
   res.json(pakoUsers[idxPako]);
+});
+
+app.get("/api/v1/rooms/getPakoRooms", (req, res) => {
+  const token = Number(req.headers.authentication);
+  const roomsIn = pakoRooms.filter((e) => e.participants.indexOf(token) !== -1);
+  res.json(roomsIn);
+});
+
+app.post("/api/v1/rooms/enterRoom/:id", (req, res) => {
+  const pass = req.headers.authentication;
+  const roomNum = Number(req.params.id);
+  const room = pakoRooms.find((e) => e.id === roomNum);
+
+  if (room.pass === pass) {
+    room.participants.push(req.body.id);
+    res.json({ added: true });
+  } else {
+    res.status(403);
+  }
 });
 
 app.listen(port, () => {
