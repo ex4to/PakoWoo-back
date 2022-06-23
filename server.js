@@ -67,17 +67,16 @@ app.post("/api/v1/createNewPakoUser", (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     photo: req.body.photo,
-    fullName() {
-      return this.firstName + " " + this.lastName;
-    },
+    rooms: [],
   };
+
   pakoUsers.push(newPakoUser);
   res.json(newPakoUser);
 });
 
 app.get("/api/v1/pakos/:id", (req, res) => {
-  console.log(req.params);
-  res.json('a');
+  const idxPako = pakoUsers.findIndex((e) => e.vkId === Number(req.params.id));
+  res.json(pakoUsers[idxPako]);
 });
 
 app.listen(port, () => {
