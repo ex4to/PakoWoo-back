@@ -97,6 +97,18 @@ app.post("/api/v1/rooms/enterRoom/:id", (req, res) => {
   }
 });
 
+app.post("/api/v1/rooms/createRoom", (req, res) => {
+  pakoRooms.push({
+    id: pakoRooms.length + 1,
+    pass: "123456",
+    roomName: req.body.roomName,
+    participants: [Number(req.body.pakoID)],
+    admins: [Number(req.body.pakoID)],
+  });
+
+  res.status(200).json({ created: true });
+});
+
 app.listen(port, () => {
   console.log("Listening " + port);
 });
